@@ -1,0 +1,52 @@
+# ============================================
+# AccessMap ML — .gitignore
+# ============================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (large files)
+data/raw/
+data/processed/images/
+data/processed/labels/
+
+# Models (large files)
+models/*.pt
+models/*.onnx
+models/*.tflite
+models/*.engine
+runs/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+.dockerignore

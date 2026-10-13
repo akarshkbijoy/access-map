@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add a New Location - Access Map</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-container": "#bae6fd",
+              "surface-variant": "#e0e3e5",
+              "primary-fixed-dim": "#bec6e0",
+              "tertiary-fixed-dim": "#e3c285",
+              "on-error-container": "#93000a",
+              "surface-container-highest": "#e0e3e5",
+              "outline": "#71787c",
+              "on-secondary-container": "#3d687c",
+              "secondary-fixed": "#bee9ff",
+              "on-background": "#191c1e",
+              "primary-fixed": "#dae2fd",
+              "on-primary-fixed": "#131b2e",
+              "primary-container": "#d8dffa",
+              "inverse-primary": "#bec6e0",
+              "tertiary": "#745b28",
+              "surface": "#f7f9fb",
+              "surface-container-low": "#f2f4f6",
+              "surface-dim": "#d8dadc",
+              "inverse-on-surface": "#eff1f3",
+              "on-secondary": "#ffffff",
+              "on-surface-variant": "#41484c",
+              "surface-bright": "#f7f9fb",
+              "error": "#ba1a1a",
+              "tertiary-container": "#fedb9c",
+              "tertiary-fixed": "#ffdea4",
+              "on-tertiary-fixed": "#261900",
+              "background": "#f7f9fb",
+              "on-tertiary-container": "#785f2c",
+              "surface-container-high": "#e6e8ea",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-container": "#5a6279",
+              "surface-tint": "#565e74",
+              "on-primary": "#ffffff",
+              "secondary": "#396477",
+              "on-secondary-fixed-variant": "#1e4c5f",
+              "on-tertiary-fixed-variant": "#5a4312",
+              "surface-container": "#eceef0",
+              "error-container": "#ffdad6",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2d3133",
+              "primary": "#565e74",
+              "secondary-fixed-dim": "#a1cde3",
+              "on-error": "#ffffff",
+              "on-secondary-fixed": "#001f2a",
+              "on-primary-fixed-variant": "#3f465c",
+              "on-surface": "#191c1e",
+              "outline-variant": "#c1c7cc"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    vertical-align: middle
+    }
+.glass-edge {
+    box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3)
+    }
+.bg-abstract-map {
+    background-image: linear-gradient(135deg, rgba(186, 230, 253, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%), url(https://lh3.googleusercontent.com/aida-public/AB6AXuAPi-phAkUD5T2ls8qS3AJyfXSmraYVMzoHBrdnFq8CuRI-_EU5pHFXlEtyIxJq5ykEv6xNW5xboc3_GOVBYvsyTubu9kThjoXjmLR4dMsCI51_5uYdryQtWgPgPFBHeLQGf0BlH4Bb2YARgaYa0_cztuVXtmZS_5ShzFQW3ekVyaBcXQ1Z8xgRP3uacdXhzOVZFKauo18h4kUSttW6nhQP2WytUdxPpLHXhH0lhCN364gY3q-hice5Ml4VLOXx1V0ekQItTN4hFCAH);
+    background-size: cover;
+    background-position: center
+    }</style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-3 max-w-7xl mx-auto rounded-full mt-4 mx-4 bg-white/70 backdrop-blur-3xl dark:bg-slate-900/70 shadow-[0_20_40px_rgba(25,28,30,0.06)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white font-headline">Access Map</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" href="#">Explorer</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" href="#">Waypoints</a>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-full transition-all active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined text-slate-900 dark:text-white" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center pt-24 pb-12 px-6 relative overflow-hidden bg-abstract-map" data-alt="abstract blurred map with soft ethereal blue and white gradients and fluid organic shapes in a high-key lighting style">
+<!-- Blur Overlay for the Map -->
+<div class="absolute inset-0 backdrop-blur-[80px] z-0"></div>
+<!-- Floating Frosted Glass Form Card -->
+<section class="relative z-10 w-full max-w-2xl bg-white/70 backdrop-blur-3xl rounded-xl md:rounded-full p-8 md:p-16 shadow-[0_20px_40px_rgba(25,28,30,0.06)] glass-edge">
+<div class="text-center mb-12">
+<h1 class="text-on-background font-headline text-4xl md:text-5xl font-black tracking-tight mb-4">Add a New Location</h1>
+<p class="text-on-surface-variant text-lg font-medium leading-relaxed max-w-md mx-auto">Join our community in shaping a more inclusive world.</p>
+</div>
+<form class="space-y-10">
+<!-- Location Name Field -->
+<div class="space-y-3">
+<label class="block text-sm font-bold uppercase tracking-widest text-on-surface-variant px-6" for="location_name">Location Name</label>
+<input class="w-full px-8 py-5 bg-surface-container-low/50 border-none rounded-full text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary-container focus:bg-surface-container-lowest transition-all duration-300" id="location_name" placeholder="Enter venue or landmark name" type="text"/>
+</div>
+<!-- Category Dropdown -->
+<div class="space-y-3">
+<label class="block text-sm font-bold uppercase tracking-widest text-on-surface-variant px-6" for="category">Category</label>
+<div class="relative">
+<select class="w-full appearance-none px-8 py-5 bg-surface-container-low/50 border-none rounded-full text-on-surface focus:ring-2 focus:ring-secondary-container focus:bg-surface-container-lowest transition-all duration-300" id="category">
+<option value="">Select a category</option>
+<option value="restaurant">Restaurant &amp; Dining</option>
+<option value="retail">Retail &amp; Shopping</option>
+<option value="public">Public Space &amp; Parks</option>
+<option value="medical">Healthcare</option>
+<option value="transport">Transit Hub</option>
+</select>
+<span class="material-symbols-outlined absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Accessibility Features Bento-ish Grid -->
+<div class="space-y-4">
+<label class="block text-sm font-bold uppercase tracking-widest text-on-surface-variant px-6">Accessibility Features</label>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<label class="flex items-center gap-4 p-5 bg-surface-container-low/40 hover:bg-surface-container-low/80 rounded-full cursor-pointer transition-all active:scale-[0.98]">
+<input class="w-6 h-6 rounded-full border-none bg-white text-secondary focus:ring-secondary-container" type="checkbox"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="accessible">accessible</span>
+<span class="text-sm font-semibold">Ramp</span>
+</div>
+</label>
+<label class="flex items-center gap-4 p-5 bg-surface-container-low/40 hover:bg-surface-container-low/80 rounded-full cursor-pointer transition-all active:scale-[0.98]">
+<input class="w-6 h-6 rounded-full border-none bg-white text-secondary focus:ring-secondary-container" type="checkbox"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="elevator">elevator</span>
+<span class="text-sm font-semibold">Elevator</span>
+</div>
+</label>
+<label class="flex items-center gap-4 p-5 bg-surface-container-low/40 hover:bg-surface-container-low/80 rounded-full cursor-pointer transition-all active:scale-[0.98]">
+<input class="w-6 h-6 rounded-full border-none bg-white text-secondary focus:ring-secondary-container" type="checkbox"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="alt_route">alt_route</span>
+<span class="text-sm font-semibold">Tactile Paths</span>
+</div>
+</label>
+<label class="flex items-center gap-4 p-5 bg-surface-container-low/40 hover:bg-surface-container-low/80 rounded-full cursor-pointer transition-all active:scale-[0.98]">
+<input class="w-6 h-6 rounded-full border-none bg-white text-secondary focus:ring-secondary-container" type="checkbox"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="braille">blind</span>
+<span class="text-sm font-semibold">Braille</span>
+</div>
+</label>
+<label class="flex items-center gap-4 p-5 bg-surface-container-low/40 hover:bg-surface-container-low/80 rounded-full cursor-pointer transition-all active:scale-[0.98] md:col-span-2">
+<input class="w-6 h-6 rounded-full border-none bg-white text-secondary focus:ring-secondary-container" type="checkbox"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="wc">wc</span>
+<span class="text-sm font-semibold">Accessible Restroom</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-6">
+<button class="w-full bg-secondary-container text-on-secondary-container font-headline font-black text-lg py-5 rounded-full hover:shadow-[0_10px_25px_rgba(186,230,253,0.4)] transition-all active:scale-95 duration-200" type="submit">
+                        Contribute Location
+                    </button>
+</div>
+</form>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 flex flex-col items-center gap-4 mt-auto bg-transparent">
+<div class="flex gap-8">
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-sky-400 transition-colors opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-sky-400 transition-colors opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-sky-400 transition-colors opacity-80 hover:opacity-100" href="#">API</a>
+</div>
+<p class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400">© 2024 Access Map</p>
+</footer>
+</body></html>

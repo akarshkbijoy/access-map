@@ -1,0 +1,63 @@
+# ============================================
+# AccessMap ML — Docker Compose
+# ============================================
+# Orchestrate the ML API service with optional
+# GPU support and persistent model storage.
+# ============================================
+
+services:
+  # ── AccessMap ML API ──
+  accessmap-ml:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: accessmap-ml-api
+    ports:
+      - "8000:8000"
+    environment:
+      - CONFIG_PATH=config/config.yaml
+      - MODEL_PATH=models/best.pt
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - DEVICE=cpu
+      - LOG_LEVEL=INFO
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+      - RATE_LIMIT_PER_MINUTE=60
+    volumes:
+      # Persist trained models
+      - ./models:/app/models
+      # Persist configuration changes
+      - ./config:/app/config
+      # Persist logs
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+
+  # ── GPU-enabled variant (uncomment to use) ──
+  # accessmap-ml-gpu:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: accessmap-ml-api-gpu
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - DEVICE=cuda:0
+  #     - MODEL_PATH=models/best.pt
+  #   volumes:
+  #     - ./models:/app/models
+  #     - ./config:/app/config
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities: [gpu]
+  #   restart: unless-stopped

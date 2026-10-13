@@ -1,0 +1,50 @@
+# ============================================
+# AccessMap ML — Requirements
+# ============================================
+
+# --- Core ML ---
+ultralytics>=8.3.0          # YOLOv8 framework
+torch>=2.1.0                # PyTorch backend
+torchvision>=0.16.0         # Image utilities
+
+# --- Image Processing ---
+opencv-python-headless>=4.9.0  # OpenCV (headless for servers)
+Pillow>=10.0.0              # Image I/O
+albumentations>=1.4.0       # Advanced augmentation
+
+# --- Data Handling ---
+PyYAML>=6.0                 # Config parsing
+numpy>=1.24.0               # Numerical ops
+pandas>=2.1.0               # Data analysis
+
+# --- API Server ---
+fastapi>=0.115.0            # REST API framework
+uvicorn[standard]>=0.32.0   # ASGI server
+python-multipart>=0.0.9     # File upload support
+pydantic>=2.5.0             # Data validation
+pydantic-settings>=2.1.0    # Settings management
+
+# --- Model Export & Inference ---
+onnx>=1.15.0                # ONNX model format
+onnxruntime>=1.19.0         # ONNX inference runtime
+
+# --- Evaluation & Visualization ---
+matplotlib>=3.8.0           # Plotting
+seaborn>=0.13.0             # Statistical visualization
+scikit-learn>=1.3.0         # Metrics utilities
+
+# --- Logging & Utilities ---
+loguru>=0.7.0               # Structured logging
+tqdm>=4.66.0                # Progress bars
+requests>=2.31.0            # HTTP requests
+aiofiles>=23.2.0            # Async file I/O
+python-dotenv>=1.0.0        # Environment variables
+
+# --- Notebooks (optional) ---
+jupyter>=1.0.0              # Notebook support
+ipywidgets>=8.1.0           # Interactive widgets
+
+# --- Testing ---
+pytest>=7.4.0               # Test framework
+pytest-asyncio>=0.23.0      # Async test support
+httpx>=0.27.0               # Async HTTP client for testing

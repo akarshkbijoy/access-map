@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#e8e8e8",
+              "surface-variant": "#e2e2e2",
+              "primary-fixed": "#bee9ff",
+              "secondary-fixed": "#dae2fd",
+              "inverse-on-surface": "#f0f1f1",
+              "surface-container-lowest": "#ffffff",
+              "surface-dim": "#dadada",
+              "surface-container-low": "#f3f3f4",
+              "surface-bright": "#f9f9f9",
+              "on-secondary-fixed-variant": "#3f465c",
+              "tertiary-fixed-dim": "#e3c285",
+              "on-tertiary-fixed": "#261900",
+              "surface-container": "#eeeeee",
+              "primary": "#396477",
+              "secondary": "#565e74",
+              "tertiary-container": "#fedb9c",
+              "on-secondary-container": "#5c647a",
+              "primary-container": "#bae6fd",
+              "on-tertiary": "#ffffff",
+              "background": "#f9f9f9",
+              "on-tertiary-container": "#785f2c",
+              "tertiary-fixed": "#ffdea4",
+              "on-secondary": "#ffffff",
+              "surface-tint": "#396477",
+              "inverse-surface": "#2f3131",
+              "error": "#ba1a1a",
+              "surface-container-highest": "#e2e2e2",
+              "secondary-fixed-dim": "#bec6e0",
+              "secondary-container": "#dae2fd",
+              "on-primary": "#ffffff",
+              "outline": "#71787c",
+              "on-surface": "#1a1c1c",
+              "surface": "#f9f9f9",
+              "primary-fixed-dim": "#a1cde3",
+              "on-background": "#1a1c1c",
+              "error-container": "#ffdad6",
+              "on-surface-variant": "#41484c",
+              "on-error": "#ffffff",
+              "on-primary-container": "#3d687c",
+              "on-primary-fixed": "#001f2a",
+              "on-secondary-fixed": "#131b2e",
+              "tertiary": "#745b28",
+              "on-primary-fixed-variant": "#1e4c5f",
+              "on-tertiary-fixed-variant": "#5a4312",
+              "inverse-primary": "#a1cde3",
+              "outline-variant": "#c1c7cc",
+              "on-error-container": "#93000a"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .ethereal-bg {
+            background: radial-gradient(circle at 20% 30%, #bae6fd 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, #dae2fd 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, #f3f3f4 0%, #f9f9f9 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #396477 0%, #131b2e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="ethereal-bg min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-full mt-6 mx-auto w-[90%] max-w-5xl shadow-[0_20px_40px_rgba(15,23,42,0.06)] tonal-shift shadow-sm">
+<div class="text-xl font-black tracking-tighter text-cyan-900 dark:text-cyan-100">Protocol</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-cyan-600 transition-colors hover:scale-105 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-300 px-4 py-1 rounded-full" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-cyan-600 transition-colors hover:scale-105 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-300 px-4 py-1 rounded-full" href="#">Explore</a>
+<a class="text-cyan-600 dark:text-cyan-400 font-bold border-b-2 border-cyan-500 pb-1 hover:scale-105 transition-all duration-300" href="#">About</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-cyan-600 transition-colors hover:scale-105 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-300 px-4 py-1 rounded-full" href="#">Community</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</button>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-24">
+<!-- Hero Section -->
+<section class="relative">
+<div class="glass-panel p-12 md:p-24 rounded-xl md:rounded-full flex flex-col items-center text-center shadow-[0_20px_60px_rgba(57,100,119,0.1)] border border-white/40 overflow-hidden">
+<!-- Decorative blurred shapes behind text -->
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-primary-container/30 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary-fixed/30 rounded-full blur-3xl"></div>
+<h1 class="text-5xl md:text-8xl font-extrabold tracking-[-0.04em] leading-[0.9] text-gradient z-10 max-w-4xl">
+                    Cultivating Inclusive Spaces
+                </h1>
+<p class="mt-8 text-on-surface-variant text-lg md:text-xl font-medium tracking-tight max-w-2xl z-10 opacity-80">
+                    Redefining the digital landscape through ethereal design and human-centric architecture. Protocol is the blueprint for the next generation of shared environments.
+                </p>
+<div class="mt-12 flex gap-4 z-10">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 rounded-full font-bold tracking-widest text-xs uppercase shadow-xl hover:scale-105 transition-transform">
+                        Explore Our Vision
+                    </button>
+</div>
+</div>
+</section>
+<!-- Primary Content Area: Floating Cards -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group relative surface-container-lowest glass-panel p-10 rounded-xl md:rounded-[3rem] shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:scale-[1.02] transition-all duration-500 border border-white/20">
+<div class="w-16 h-16 bg-primary-container flex items-center justify-center rounded-full mb-8 group-hover:bg-primary transition-colors duration-500">
+<span class="material-symbols-outlined text-on-primary-container group-hover:text-on-primary">diversity_3</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight mb-4">Healthy Community</h3>
+<p class="text-on-surface-variant leading-relaxed font-medium">
+                    We prioritize growth through radical inclusivity. Our spaces are engineered to foster belonging and constructive dialogue for every individual.
+                </p>
+<div class="mt-8 overflow-hidden rounded-lg aspect-video">
+<img alt="Community" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="A diverse group of young professionals collaborating in a bright, modern glass-walled office with warm sunlight and plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTLPyOcYBgPc3ESWgpG0cGl8jzKnBUtqmFQqa8HLLwflQqOkU7LYmA1WCk_e9o96Tz1DPllxciofzuZB1VbzofrpDmsSeD4zyj4nw2q4ZAlv8rsMNWbVfVfB5wjTxH11mBJnbshGdq5sNXCsM-mXvRYiXipP-T-O2lk27GASze63o5zLjsZ18tQwYYANXzRWzD-BFvQbRl29AL1jX1WXKoyJr3v3ORsemx8i3J5I6rXivSRgan3hce0Z2EQxkCyH3SnasPXNL75Sb-"/>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative surface-container-lowest glass-panel p-10 rounded-xl md:rounded-[3rem] shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:scale-[1.02] transition-all duration-500 border border-white/20">
+<div class="w-16 h-16 bg-secondary-container flex items-center justify-center rounded-full mb-8 group-hover:bg-secondary transition-colors duration-500">
+<span class="material-symbols-outlined text-on-secondary-container group-hover:text-on-secondary">bolt</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight mb-4">Fast &amp; Secure Updates</h3>
+<p class="text-on-surface-variant leading-relaxed font-medium">
+                    Built on high-performance infrastructure ensuring real-time data sync with military-grade security layers protecting your digital identity.
+                </p>
+<div class="mt-8 overflow-hidden rounded-lg aspect-video">
+<img alt="Security" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="Close-up of abstract blue glowing circuits and data points on a translucent digital screen representing high-speed security" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCmKtWEw5_UfqpFrelxu6S1goDr12uXkiafdk77dq1ZG1IXlYXaI-ZqRRbOU05YPsA6cTdkOFq7o358V2EJt_l_ldDtN65Dpbmxy0UuUAArI23304xWY2SJNAoaS5N4zol2c88jSVeWO9-I1-dODZwBzOFJG1lP7lMEtkQAdd926SosoIjdZ3MMI8uC2mTR10ZUrejHjiM13wBn4BQpFdg1kIPEgIcjla7ADP2Hg2t2RHp3hDVL4ZWP-4-_xODhZDlPHwP_GTOftYV"/>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative surface-container-lowest glass-panel p-10 rounded-xl md:rounded-[3rem] shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:scale-[1.02] transition-all duration-500 border border-white/20">
+<div class="w-16 h-16 bg-tertiary-container flex items-center justify-center rounded-full mb-8 group-hover:bg-tertiary transition-colors duration-500">
+<span class="material-symbols-outlined text-on-tertiary-container group-hover:text-on-tertiary">eco</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface tracking-tight mb-4">Eco-Friendly Navigation</h3>
+<p class="text-on-surface-variant leading-relaxed font-medium">
+                    Sustainable code meets efficient logistics. Our algorithms minimize energy consumption while maximizing your journey's efficiency.
+                </p>
+<div class="mt-8 overflow-hidden rounded-lg aspect-video">
+<img alt="Eco" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="Soft-focus aerial view of a winding forest road surrounded by dense pine trees at misty sunrise with cool blue tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOx4QI-lzsthdZWYZuSUM9ut5BOfgMkcbADhaoihRcEB71WoePWzTFvxDA8EW_3WYkWaVunquKUx_tPuLxMwB10AaqxWeXeBVJRIkcjhyzXFGFO6UFmLgs8sVb53GEFB0-HBpnfEJ0gNoKzUbibu_E95FsA1tDG7ufRJt94cZ0wnZGsjbC_j2k8SmuLyO61THBD3YeO7V2_6m9YWa_Qf7XqYlYK46ydrZrkW9qgc0l67dPwzUO_9lWM0d7BfBMCUxQUtnnM8VE_JXj"/>
+</div>
+</div>
+</section>
+<!-- Asymmetric Detail Section -->
+<section class="flex flex-col md:flex-row items-center gap-16 py-12">
+<div class="w-full md:w-1/2 relative">
+<div class="aspect-square rounded-full overflow-hidden shadow-2xl border-8 border-white/50">
+<img alt="Interior" class="w-full h-full object-cover scale-110" data-alt="Minimalist high-end office interior with glass walls, soft lighting, and white furniture, creating a calm professional atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd6jiWs0XPaLzZJkUaDpNnW_8MSzbef6c1WxrbWDBElT9HDEZ8WfiFfcPEp7Z6692H4HWhb6oy7wonR-ixkyFmRuDomUMzUXHi5wYDUJ7Lz0-njuVJpdNC2TeMWeHhU7Sfu_vrfznavla_QM3AtUsgYBtbRUtV-sA82EXwOCYHaUKwqpWx550to8gXDjnQ0LVlPikUmHemunJ2tVrAitzs6oZ1I7KA7YYvWXc5wloAa_v2yk6KXLNzDgkSx9qXOfSd6CfGDvk8EmK2"/>
+</div>
+<div class="absolute -bottom-8 -right-8 glass-panel p-8 rounded-xl shadow-xl max-w-xs border border-white/40">
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-2">Our Standard</span>
+<p class="text-sm font-semibold text-on-surface leading-snug">Every pixel is designed to serve a purpose, every interaction built to feel like water.</p>
+</div>
+</div>
+<div class="w-full md:w-1/2 space-y-6">
+<span class="label-md font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-[0.1em] font-medium text-cyan-600 bg-cyan-50 px-4 py-2 rounded-full">Liquid Philosophy</span>
+<h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface">Designed for the human spirit.</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                    We believe digital spaces should be as welcoming and nuanced as physical ones. By combining high-impact editorial typography with atmospheric depth, Protocol creates environments where ideas don't just exist—they breathe.
+                </p>
+<div class="pt-4">
+<a class="inline-flex items-center gap-2 font-bold text-primary group" href="#">
+                        Learn about our process
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-slate-200/20 bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-md glass-refraction-blur">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 gap-6">
+<div class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-[0.1em] font-medium text-slate-400 dark:text-slate-500">
+                © 2024 Protocol Editorial. All rights reserved.
+            </div>
+<div class="flex gap-8">
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-[0.1em] font-medium text-slate-400 dark:text-slate-500 hover:text-cyan-500 transition-colors opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-[0.1em] font-medium text-slate-400 dark:text-slate-500 hover:text-cyan-500 transition-colors opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-[0.1em] font-medium text-slate-400 dark:text-slate-500 hover:text-cyan-500 transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

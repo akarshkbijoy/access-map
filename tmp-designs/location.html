@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Central Library | Access Map</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#71787c",
+              "inverse-primary": "#a1cde3",
+              "on-tertiary-fixed": "#191c1e",
+              "secondary-fixed": "#dae2fd",
+              "on-primary-fixed-variant": "#1e4c5f",
+              "on-surface-variant": "#41484c",
+              "surface-bright": "#f9f9f9",
+              "surface-container": "#eeeeee",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#bec6e0",
+              "on-tertiary-fixed-variant": "#444749",
+              "on-background": "#1a1c1c",
+              "tertiary-fixed": "#e0e3e5",
+              "on-secondary-fixed": "#131b2e",
+              "outline-variant": "#c1c7cc",
+              "secondary": "#565e74",
+              "tertiary": "#5c5f61",
+              "on-primary-fixed": "#001f2a",
+              "tertiary-container": "#dee0e2",
+              "on-tertiary": "#ffffff",
+              "surface-dim": "#dadada",
+              "tertiary-fixed-dim": "#c4c7c9",
+              "on-tertiary-container": "#606365",
+              "surface-tint": "#396477",
+              "inverse-on-surface": "#f0f1f1",
+              "error": "#ba1a1a",
+              "primary-fixed": "#bee9ff",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "background": "#f9f9f9",
+              "surface-container-highest": "#e2e2e2",
+              "secondary-container": "#dae2fd",
+              "on-secondary-fixed-variant": "#3f465c",
+              "surface-container-low": "#f3f3f4",
+              "surface": "#f9f9f9",
+              "on-secondary-container": "#5c647a",
+              "on-surface": "#1a1c1c",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed-dim": "#a1cde3",
+              "on-primary-container": "#3d687c",
+              "primary-container": "#bae6fd",
+              "primary": "#396477",
+              "inverse-surface": "#2f3131",
+              "surface-container-high": "#e8e8e8",
+              "surface-variant": "#e2e2e2"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+      }
+      .text-deep-ocean { color: #0F172A; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-3 max-w-5xl mx-auto rounded-full mt-4 mx-4 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl shadow-[0_20px_40px_rgba(15,23,42,0.06)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<span class="text-xl font-extrabold text-sky-950 dark:text-sky-50 font-['Plus_Jakarta_Sans'] tracking-tight">Access Map</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-sky-100/50 dark:hover:bg-sky-800/50 transition-all scale-95 active:scale-90 duration-200 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-sky-100/50 dark:hover:bg-sky-800/50 transition-all scale-95 active:scale-90 duration-200 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-slate-200 overflow-hidden ring-2 ring-white/20">
+<img alt="User profile" data-alt="Close-up portrait of a professional man with a friendly smile, soft natural light, minimalist studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9dvX1PMytkKK98B-UYjd7szjURIa_eglYOjtRHU0Mwg8fcum8crSaNC7fQgbVurMesmEKUolErmr9Z5ubI41ZROuMQEz0yC6xok4Y0tzEVe7QLQ2NAYwBQQ77WDcbPk1GiJvMXZYPfy0w7MEuJHH382GNOabcecq0jZ-oD9vSgObsTgaATQstp4zYMBRJTkMyw4WwG7hujv12QdDTLZbR2kd8HBX2oBCrP8YiRBrMo2xdS2AxgEaBiv8rm1f07TTOgMkhod7FuHTL"/>
+</div>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-32">
+<!-- Hero Map Section -->
+<section class="px-4 mb-12 relative h-[512px] md:h-[614px]">
+<div class="w-full h-full rounded-xl overflow-hidden shadow-2xl relative">
+<!-- Map Background -->
+<div class="absolute inset-0 bg-slate-200" data-location="Seattle Central Library" style="">
+<img class="w-full h-full object-cover grayscale opacity-40" data-alt="Minimalist abstract map view with clean lines, soft blue and gray tones, showing city grid and park areas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4WAnjda5CuwUmLx-hzBfVdZzpZsYCsA7N3Bhfgz2fmwvuQcgBQFgsNNQ8DiW6IAGk_L2Nm-fy3Gh7fYSIRNUrqgwxez-2xnyLTlLm58JNSeAGPsIw_aAO538jnc4gDQu4ECL76MYVM3x5uZhetcYyMmvjw6JXXCTdZOSHT5eeY4Kvzhk4H9Ly-otWrKJfAKeQmNR6-1bvvN7iP5NWz4jLs-Tkx1QqZ31f5Af-_ZhbOfwIjaXfaMrtNuzMZ4xWi69ttiRqopLgZryB"/>
+</div>
+<!-- Glass Overlay Label -->
+<div class="absolute inset-0 flex items-center justify-center p-8">
+<div class="glass-card px-10 py-6 rounded-xl border border-white/20 text-center max-w-xl">
+<span class="font-label text-xs tracking-widest uppercase text-primary mb-2 block">Premium Destination</span>
+<h1 class="font-headline text-4xl md:text-6xl font-bold text-deep-ocean tracking-tighter mb-4">Central Library</h1>
+<div class="flex justify-center gap-6 text-sm font-medium text-secondary">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span> 4.8 Rating</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs" data-icon="verified_user">verified_user</span> Accessibility Verified</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Layout Content -->
+<section class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Interior View (Large Card) -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container-low shadow-[0_20px_40px_rgba(15,23,42,0.06)]">
+<img class="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Vast modern library interior with tall geometric glass ceilings, multi-level reading areas, and warm wooden bookshelves under bright natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYPDLrSVK4BaAUdRcuxCibf7BFdtQVF38JVUpUUzxpSXiJAqz-Ud3LRaW2d-NRpOf3nUNenvHHVRw0VbzBjafN4v5tMXiBZFJFVYS5irxUWNwZl-_sXjz3wZLwiUR0sVlfxX6dxM98uQzOQZZgIStgtDV6aT4rksICKUlK_9HDDTyS7VY1LIQNz0zVOn1tVUy9QOwfYalhr3HvRS1NdIYkWThDfQ5DP-fw88AamjWyxosWmCGhX4OhiC4RIwUHdGPLPNue4AlRoL_h"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-8">
+<h3 class="font-headline text-2xl text-white font-semibold mb-2">Architectural Excellence</h3>
+<p class="text-white/80 max-w-lg">Experience a space where accessibility meets modern design. Featuring wide aisles and dedicated study pods.</p>
+</div>
+</div>
+<!-- Accessibility Card -->
+<div class="md:col-span-4 flex flex-col gap-8">
+<div class="glass-card p-8 rounded-xl border border-white/20 flex flex-col items-center text-center shadow-lg">
+<div class="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-3xl" data-icon="accessible_forward">accessible_forward</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-deep-ocean mb-2">Ramp Accessible</h4>
+<p class="text-secondary text-sm leading-relaxed">Multiple entry points with automated doors and non-slip ramp systems verified by local community members.</p>
+<div class="mt-6 flex gap-2">
+<span class="px-3 py-1 bg-white/50 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary">Level Entry</span>
+<span class="px-3 py-1 bg-white/50 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary">Elevators</span>
+</div>
+</div>
+<!-- Directions CTA -->
+<button class="w-full py-6 bg-primary text-on-primary rounded-full font-headline font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+<span class="material-symbols-outlined" data-icon="near_me">near_me</span>
+                    Get Directions
+                </button>
+</div>
+<!-- Reviews Section -->
+<div class="md:col-span-12 mt-4">
+<div class="flex items-baseline justify-between mb-8 border-b border-outline-variant/10 pb-4">
+<h2 class="font-headline text-3xl font-bold text-deep-ocean">Community Insights</h2>
+<span class="font-label text-sm text-secondary tracking-widest">342 REVIEWS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Review 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/5 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed-dim"></div>
+<div>
+<p class="font-bold text-sm text-deep-ocean">Sarah Jenkins</p>
+<p class="text-xs text-secondary">Local Guide</p>
+</div>
+</div>
+<div class="flex text-primary mb-3">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-sm text-on-surface-variant italic">"The ramps are extremely well-maintained and the elevators are spacious enough for motorized chairs. Truly top-tier access!"</p>
+</div>
+<!-- Review 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/5 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container"></div>
+<div>
+<p class="font-bold text-sm text-deep-ocean">Marcus Chen</p>
+<p class="text-xs text-secondary">Explorer</p>
+</div>
+</div>
+<div class="flex text-primary mb-3">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star">star</span>
+</div>
+<p class="text-sm text-on-surface-variant italic">"Beautiful architecture and very quiet. The staff was very helpful in pointing out the nearest tactile paths."</p>
+</div>
+<!-- Review 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/5 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container"></div>
+<div>
+<p class="font-bold text-sm text-deep-ocean">Elena Rodriguez</p>
+<p class="text-xs text-secondary">Frequent Visitor</p>
+</div>
+</div>
+<div class="flex text-primary mb-3">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-sm text-on-surface-variant italic">"Zero barriers from the street level all the way to the top floor. One of the best accessible public spaces in the city."</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center p-2 mb-6 mx-auto w-[90%] max-w-md rounded-full bg-[#BAE6FD]/40 dark:bg-sky-900/40 backdrop-blur-3xl shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
+<a class="flex flex-col items-center justify-center text-sky-800/60 dark:text-sky-200/60 px-6 py-2 hover:bg-white/30 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest mt-1">Explorer</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-white/60 dark:bg-white/10 text-sky-900 dark:text-white rounded-full px-6 py-2 scale-105 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest mt-1">Waypoints</span>
+</a>
+<a class="flex flex-col items-center justify-center text-sky-800/60 dark:text-sky-200/60 px-6 py-2 hover:bg-white/30 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest mt-1">Account</span>
+</a>
+</nav>
+<!-- Footer Shell -->
+<footer class="w-full py-8 flex flex-col items-center gap-4 mt-auto">
+<div class="flex gap-6">
+<a class="font-['Manrope'] text-xs font-light text-slate-400 hover:text-sky-500 underline opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy</a>
+<a class="font-['Manrope'] text-xs font-light text-slate-400 hover:text-sky-500 underline opacity-80 hover:opacity-100 transition-opacity" href="#">Terms</a>
+<a class="font-['Manrope'] text-xs font-light text-slate-400 hover:text-sky-500 underline opacity-80 hover:opacity-100 transition-opacity" href="#">Support</a>
+</div>
+<p class="font-['Manrope'] text-xs font-light text-slate-400">© 2024 Access Map. All rights reserved.</p>
+</footer>
+</body></html>
