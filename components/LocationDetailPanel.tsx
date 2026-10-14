@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { CardLocation } from './LocationList'
-import { ArrowLeft, MapPin, Upload, MessageSquare, Star, CheckCircle, Clock, AlertTriangle, X } from 'lucide-react'
+import { ArrowLeft, MapPin, Upload, MessageSquare, Star, CheckCircle, Clock, AlertTriangle, X, LayoutDashboard, Building2, ShieldCheck } from 'lucide-react'
+import ClaimBusinessModal from './ClaimBusinessModal'
 
 interface LocationDetailPanelProps {
     location: CardLocation;
@@ -14,6 +16,7 @@ export default function LocationDetailPanel({ location, onClose }: LocationDetai
     const [comment, setComment] = useState('')
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
     const [localContributions, setLocalContributions] = useState<any[]>(location.contributions || [])
+    const [isClaimModalOpen, setIsClaimModalOpen] = useState(false)
 
     const [selectedFiles, setSelectedFiles] = useState<{file: File, preview: string}[]>([])
     const [uploadProgress, setUploadProgress] = useState('')
@@ -151,10 +154,30 @@ export default function LocationDetailPanel({ location, onClose }: LocationDetai
                     )}
 
                     {/* Status Badge */}
-                    <div className="inline-flex mb-6">
+                    <div className="inline-flex mb-4">
                         {location.status === 'verified' && <span className="flex items-center gap-1.5 bg-green-50 text-green-700 font-bold px-3 py-1.5 rounded-lg text-xs border border-green-200"><CheckCircle size={14} /> Verified Location</span>}
                         {location.status === 'pending' && <span className="flex items-center gap-1.5 bg-yellow-50 text-yellow-700 font-bold px-3 py-1.5 rounded-lg text-xs border border-yellow-200"><Clock size={14} /> Pending Review</span>}
                         {location.status === 'flagged' && <span className="flex items-center gap-1.5 bg-red-50 text-red-700 font-bold px-3 py-1.5 rounded-lg text-xs border border-red-200"><AlertTriangle size={14} /> Flagged</span>}
+                    </div>
+
+                    {/* Primary Dashboard & Claim Actions */}
+                    <div className="flex gap-2.5 mb-6">
+                        <Link
+                            href={`/location/${location.location_id}/dashboard`}
+                            className="flex-1 bg-[#c3f832] text-[#292928] py-2.5 px-4 rounded-xl text-xs font-black hover:bg-[#b5eb29] transition-all flex items-center justify-center gap-2 shadow-xs"
+                        >
+                            <LayoutDashboard size={15} strokeWidth={2.5} />
+                            <span>View Full Dashboard</span>
+                        </Link>
+                        <button
+                            type="button"
+                            onClick={() => setIsClaimModalOpen(true)}
+                            className="bg-white border border-[#E4E9F0] hover:border-[#292928] text-[#292928] py-2.5 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                            title="Claim this location as the business owner"
+                        >
+                            <Building2 size={14} />
+                            <span>Claim</span>
+                        </button>
                     </div>
 
                     <hr className="border-[#E4E9F0] mb-6" />
@@ -273,6 +296,15 @@ export default function LocationDetailPanel({ location, onClose }: LocationDetai
                     </div>
                 </div>
             </div>
+
+            {/* Business Claim Modal */}
+            <ClaimBusinessModal
+                locationId={location.location_id}
+                locationName={location.name}
+                locationAddress={location.address}
+                isOpen={isClaimModalOpen}
+                onClose={() => setIsClaimModalOpen(false)}
+            />
 
             <style jsx>{`
                 .custom-scrollbar::-webkit-scrollbar { width: 4px; }

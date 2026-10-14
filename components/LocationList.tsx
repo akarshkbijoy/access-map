@@ -1,6 +1,6 @@
 'use client'
 
-import { MapPin, MoreVertical, Box, ChevronRight, MessageSquare, Phone } from 'lucide-react'
+import { MapPin, MoreVertical, Box, ChevronRight, MessageSquare, Phone, LayoutDashboard } from 'lucide-react'
 import { useState } from 'react'
 import Link from 'next/link'
 
@@ -66,7 +66,14 @@ export default function LocationList({ locations, activeLocationId, onLocationCl
                                 {/* Top info matching design */}
                                 <div className="flex items-start justify-between mb-1">
                                     <h3 className="text-[16px] font-bold text-[#292928] leading-tight pr-2">
-                                        {loc.name}
+                                        <Link
+                                            href={`/location/${loc.location_id}/dashboard`}
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="hover:underline hover:text-[#1A73E8] transition-colors"
+                                            title="View Location Dashboard"
+                                        >
+                                            {loc.name}
+                                        </Link>
                                     </h3>
                                     <span className="rounded-lg px-2 py-1 text-[10px] font-bold uppercase tracking-wider shrink-0 bg-[#E8F0FE] text-[#1A73E8]">
                                         {loc.status}
@@ -138,9 +145,20 @@ export default function LocationList({ locations, activeLocationId, onLocationCl
                             </div>
 
                             {/* Expand Section */}
-                            <div className="px-5 py-3 border-t border-[#E4E9F0] bg-[#fdfdfd] flex items-center justify-between text-[#292928] text-[12px] font-bold hover:bg-[#E4E9F0] transition-colors cursor-pointer">
-                                <span>Location history and details</span>
-                                <ChevronRight size={16} className="text-[#9CA3AF]" />
+                            <div className="px-5 py-3 border-t border-[#E4E9F0] bg-[#fdfdfd] flex items-center justify-between text-[#292928] text-[12px] font-bold">
+                                <Link
+                                    href={`/location/${loc.location_id}/dashboard`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="inline-flex items-center gap-1.5 text-[#292928] hover:text-[#1A73E8] transition-colors"
+                                    title="View Accessibility Dashboard"
+                                >
+                                    <LayoutDashboard size={14} className="text-[#1A73E8]" />
+                                    <span>View Dashboard</span>
+                                </Link>
+                                <div className="flex items-center gap-1 text-[#9CA3AF] group-hover:text-[#292928] transition-colors">
+                                    <span>Details</span>
+                                    <ChevronRight size={15} />
+                                </div>
                             </div>
                         </div>
                     )

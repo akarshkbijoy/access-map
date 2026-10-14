@@ -18,6 +18,7 @@ model APP_USER {
   address         String?         @db.VarChar(255)
   phone           String?         @db.VarChar(20)
   email           String?         @unique @db.VarChar(100)
+  role            String?         @default("user") @db.VarChar(20)
   disabilityType  String?         @db.VarChar(100)
   description     String?         @db.VarChar(1000)
 
@@ -26,6 +27,8 @@ model APP_USER {
   reviews         CONTRIBUTION[]  @relation("AdminReviews")
   uploadedPhotos  LOCATION_PHOTO[] @relation("PhotoUploader")
   reviewedPhotos  LOCATION_PHOTO[] @relation("PhotoReviewer")
+  businessClaims  BUSINESS_CLAIM[]
+  ownedLocations  LOCATION[]      @relation("LocationOwner")
 }
 
 model LOCATION {
@@ -42,11 +45,18 @@ model LOCATION {
   accessibilityScore   Decimal?                @db.Decimal(3, 2)
   status               String?                 @default("pending") @db.VarChar(20)
   flagCount            Int?                    @default(0)
+  owner_id             BigInt?
+  is_claimed           Boolean?                @default(false)
 
   features             ACCESSIBILITY_FEATURE[]
   userLocations        USER_LOCATION[]
   contributions        CONTRIBUTION[]
   photos               LOCATION_PHOTO[]
+  owner                APP_USER?               @relation("LocationOwner", fields: [owner_id], references: [user_id])
+  claims               BUSINESS_CLAIM[]
+  dashboardModules     DASHBOARD_MODULE[]
+  campusBuildings      CAMPUS_BUILDING[]
+  alerts               LOCATION_ALERT[]
 }
 
 model ACCESSIBILITY_FEATURE {
@@ -107,4 +117,89 @@ model LOCATION_PHOTO {
   location     LOCATION  @relation(fields: [location_id], references: [location_id])
   user         APP_USER  @relation("PhotoUploader", fields: [user_id], references: [user_id])
   reviewer     APP_USER? @relation("PhotoReviewer", fields: [reviewed_by], references: [user_id])
+}
+
+model BUSINESS_CLAIM {
+  claim_id          BigInt    @id @default(autoincrement())
+  location_id       BigInt
+  user_id           BigInt
+  business_name     String    @db.VarChar(150)
+  claimant_name     String    @db.VarChar(100)
+  claimant_role     String    @db.VarChar(100)
+  contact_email     String    @db.VarChar(100)
+  contact_phone     String    @db.VarChar(20)
+  verification_docs String[]  @db.Text
+  notes             String?   @db.Text
+  status            String    @default("pending") @db.VarChar(20) // 'pending', 'verified', 'declined'
+  created_at        DateTime? @default(now()) @db.Timestamptz
+  reviewed_by       BigInt?
+  reviewed_at       DateTime? @db.Timestamptz
+
+  location          LOCATION  @relation(fields: [location_id], references: [location_id], onDelete: Cascade)
+  user              APP_USER  @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+}
+
+model DASHBOARD_MODULE {
+  module_id         BigInt    @id @default(autoincrement())
+  location_id       BigInt
+  module_type       String    @db.VarChar(50) // 'overview', 'campus_levels', 'features_deep_dive', 'alerts', 'sensory_guide', 'transit_parking', 'services'
+  is_enabled        Boolean   @default(true)
+  display_order     Int       @default(0)
+  title             String?   @db.VarChar(100)
+  content           Json?     @db.JsonB
+  updated_at        DateTime? @default(now()) @updatedAt @db.Timestamptz
+
+  location          LOCATION  @relation(fields: [location_id], references: [location_id], onDelete: Cascade)
+
+  @@unique([location_id, module_type])
+}
+
+model CAMPUS_BUILDING {
+  building_id       BigInt    @id @default(autoincrement())
+  location_id       BigInt
+  name              String    @db.VarChar(100)
+  description       String?   @db.VarChar(500)
+  total_floors      Int       @default(1)
+  display_order     Int       @default(0)
+
+  location          LOCATION  @relation(fields: [location_id], references: [location_id], onDelete: Cascade)
+  floors            CAMPUS_FLOOR[]
+}
+
+model CAMPUS_FLOOR {
+  floor_id          BigInt    @id @default(autoincrement())
+  building_id       BigInt
+  floor_number      Int
+  floor_name        String    @db.VarChar(100)
+  map_image_url     String?   @db.Text
+  description       String?   @db.VarChar(500)
+
+  building          CAMPUS_BUILDING @relation(fields: [building_id], references: [building_id], onDelete: Cascade)
+  pois              FLOOR_POI[]
+}
+
+model FLOOR_POI {
+  poi_id            BigInt    @id @default(autoincrement())
+  floor_id          BigInt
+  name              String    @db.VarChar(100)
+  category          String    @db.VarChar(50) // 'elevator', 'restroom', 'ramp', 'tactile_path', 'help_desk', 'quiet_room', 'parking'
+  x_coord           Decimal?  @db.Decimal(5, 2)
+  y_coord           Decimal?  @db.Decimal(5, 2)
+  description       String?   @db.VarChar(255)
+
+  floor             CAMPUS_FLOOR @relation(fields: [floor_id], references: [floor_id], onDelete: Cascade)
+}
+
+model LOCATION_ALERT {
+  alert_id          BigInt    @id @default(autoincrement())
+  location_id       BigInt
+  title             String    @db.VarChar(150)
+  message           String    @db.Text
+  severity          String    @default("info") @db.VarChar(20) // 'info', 'warning', 'critical'
+  is_active         Boolean   @default(true)
+  starts_at         DateTime? @default(now()) @db.Timestamptz
+  expires_at        DateTime? @db.Timestamptz
+  created_at        DateTime? @default(now()) @db.Timestamptz
+
+  location          LOCATION  @relation(fields: [location_id], references: [location_id], onDelete: Cascade)
 }

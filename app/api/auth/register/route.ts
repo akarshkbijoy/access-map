@@ -28,6 +28,8 @@ export async function POST(req: Request) {
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10)
 
+        const userRole = username.toLowerCase().includes('admin') ? 'admin' : 'user'
+
         // Create user
         const user = await prisma.aPP_USER.create({
             data: {
@@ -38,21 +40,25 @@ export async function POST(req: Request) {
                 phone,
                 description,
                 password: hashedPassword,
-                // Assign first created user as admin for testing convenience, otherwise 'user'
-                // This is a naive approach just for prototype demonstration purposes.
+                role: userRole
             }
         })
-
-        // Simple admin role check (e.g. if their username features admin)
-        const role = username.toLowerCase().includes('admin') ? 'admin' : 'user'
 
         const token = await signToken({
             user_id: Number(user.user_id),
             email: user.email!,
-            role: role
+            role: userRole
         })
 
-        const response = NextResponse.json({ success: true, user: { id: Number(user.user_id), username: user.username, role } }, { status: 201 })
+        const response = NextResponse.json({ 
+            success: true, 
+            user: { 
+                id: Number(user.user_id), 
+                username: user.username, 
+                email: user.email,
+                role: userRole 
+            } 
+        }, { status: 201 })
 
         // Set HTTP-only cookie
         response.cookies.set({

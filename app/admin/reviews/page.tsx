@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Box, Check, X, MessageSquare, MapPin, Clock, Camera, Image as ImageIcon, Brain } from 'lucide-react'
+import { Box, Check, X, MessageSquare, MapPin, Clock, Camera, Image as ImageIcon, Brain, Building2, ExternalLink, ShieldCheck } from 'lucide-react'
 import MlReviewTab from './MlReviewTab'
 
 interface Contribution {
@@ -44,14 +44,28 @@ export default function AdminReviewsPage() {
     const [locations, setLocations] = useState<any[]>([])
     const [allLocations, setAllLocations] = useState<any[]>([])
     const [pendingPhotos, setPendingPhotos] = useState<PendingPhoto[]>([])
-    const [activeTab, setActiveTab] = useState<'locations' | 'photos' | 'all' | 'ml'>('ml')
+    const [claims, setClaims] = useState<any[]>([])
+    const [activeTab, setActiveTab] = useState<'locations' | 'photos' | 'all' | 'ml' | 'claims'>('ml')
     const [editingLocation, setEditingLocation] = useState<any>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
 
     useEffect(() => {
         fetchContributions()
+        fetchClaims()
     }, [])
+
+    const fetchClaims = async () => {
+        try {
+            const res = await fetch('/api/claims')
+            if (res.ok) {
+                const data = await res.json()
+                setClaims(data.claims || [])
+            }
+        } catch (err: any) {
+            console.error('Failed to fetch claims:', err)
+        }
+    }
 
     const fetchContributions = async () => {
         try {
@@ -134,6 +148,25 @@ export default function AdminReviewsPage() {
         }
     }
 
+    const handleClaimReview = async (claimId: number, status: 'verified' | 'declined') => {
+        try {
+            const res = await fetch('/api/claims', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ claim_id: claimId, status })
+            })
+
+            if (!res.ok) {
+                const data = await res.json()
+                throw new Error(data.message || `Failed to ${status} claim`)
+            }
+
+            setClaims(prev => prev.map(c => c.claim_id === claimId ? { ...c, status } : c))
+        } catch (err: any) {
+            alert(err.message)
+        }
+    }
+
     const handleEditSave = async (id: number, updates: any) => {
         try {
             const res = await fetch('/api/admin/reviews', {
@@ -184,6 +217,12 @@ export default function AdminReviewsPage() {
                             className={`flex-1 py-2 px-3 text-[13px] font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${activeTab === 'ml' ? 'bg-[#1A73E8] text-white shadow-sm' : 'text-[#1A73E8] hover:bg-[#E8F0FE]'}`}
                         >
                             <Brain size={14} /> AI Analysis
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('claims')}
+                            className={`flex-1 py-2 px-3 text-[13px] font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${activeTab === 'claims' ? 'bg-[#292928] text-white shadow-sm' : 'text-[#6B7280] hover:text-[#292928]'}`}
+                        >
+                            <Building2 size={14} /> Business Claims ({claims.filter(c => c.status === 'pending').length})
                         </button>
                         <button
                             onClick={() => setActiveTab('locations')}
@@ -348,6 +387,131 @@ export default function AdminReviewsPage() {
                         </div>
                     </div>
                 ))}
+                {/* Business Claims Tab */}
+                {activeTab === 'claims' && (
+                    <div className="space-y-4">
+                        {claims.length === 0 ? (
+                            <div className="bg-white rounded-[24px] border border-[#E4E9F0] p-12 flex flex-col items-center text-center shadow-sm">
+                                <div className="h-20 w-20 bg-[#f8f8f8] rounded-full flex items-center justify-center text-[#d1d5db] mb-4">
+                                    <Building2 size={36} />
+                                </div>
+                                <h3 className="text-xl font-bold text-[#292928] mb-2">No Business Claims</h3>
+                                <p className="text-[#6B7280] font-medium max-w-sm">No business owners have submitted ownership claims yet.</p>
+                            </div>
+                        ) : (
+                            claims.map((claim) => (
+                                <div key={claim.claim_id} className="bg-white rounded-[24px] border border-[#E4E9F0] p-6 shadow-sm flex flex-col md:flex-row justify-between gap-6 transition-all">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-3 mb-2 flex-wrap">
+                                            <span className="bg-[#f8f8f8] border border-[#E4E9F0] text-[#292928] text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-lg">
+                                                Claim #{claim.claim_id}
+                                            </span>
+                                            {claim.status === 'pending' && (
+                                                <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 text-xs font-bold px-3 py-1 rounded-lg flex items-center gap-1">
+                                                    <Clock size={13} /> Pending Review
+                                                </span>
+                                            )}
+                                            {claim.status === 'verified' && (
+                                                <span className="bg-[#c3f832]/30 text-[#292928] border border-[#c3f832] text-xs font-bold px-3 py-1 rounded-lg flex items-center gap-1">
+                                                    <ShieldCheck size={13} /> Approved & Claimed
+                                                </span>
+                                            )}
+                                            {claim.status === 'declined' && (
+                                                <span className="bg-red-50 text-red-700 border border-red-200 text-xs font-bold px-3 py-1 rounded-lg flex items-center gap-1">
+                                                    <X size={13} /> Declined
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        <h3 className="text-xl font-black text-[#292928] mb-1">
+                                            {claim.business_name}
+                                        </h3>
+                                        <p className="text-sm text-[#6B7280] font-medium flex items-center gap-1.5 mb-4">
+                                            <MapPin size={15} className="shrink-0" />
+                                            {claim.location?.address || 'Address not available'} (Location #{claim.location_id})
+                                        </p>
+
+                                        {/* Claimant info card */}
+                                        <div className="bg-[#F8FAFC] border border-[#E4E9F0] rounded-2xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs mb-4">
+                                            <div>
+                                                <span className="text-[#9CA3AF] font-bold block mb-0.5">Claimant</span>
+                                                <span className="text-[#292928] font-bold">{claim.claimant_name} ({claim.claimant_role})</span>
+                                                <span className="text-[#6B7280] block text-[11px]">User: @{claim.user?.username || 'member'}</span>
+                                            </div>
+                                            <div>
+                                                <span className="text-[#9CA3AF] font-bold block mb-0.5">Official Contact</span>
+                                                <span className="text-[#292928] font-medium block">{claim.contact_email}</span>
+                                                <span className="text-[#292928] font-medium block">{claim.contact_phone}</span>
+                                            </div>
+                                        </div>
+
+                                        {claim.verification_docs && claim.verification_docs.length > 0 && (
+                                            <div className="mb-3">
+                                                <span className="text-xs font-bold text-[#6B7280] uppercase tracking-wider block mb-1">Verification Document / Link:</span>
+                                                {claim.verification_docs.map((doc: string, idx: number) => (
+                                                    <a
+                                                        key={idx}
+                                                        href={doc.startsWith('http') ? doc : `https://${doc}`}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1A73E8] hover:underline bg-[#E8F0FE] px-3 py-1.5 rounded-lg border border-[#D2E3FC]"
+                                                    >
+                                                        <ExternalLink size={13} />
+                                                        {doc}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {claim.notes && (
+                                            <div className="text-xs text-[#4B5563] bg-[#f8f8f8] p-3 rounded-xl border border-[#E4E9F0]">
+                                                <span className="font-bold text-[#292928]">Claimant Notes: </span>
+                                                {claim.notes}
+                                            </div>
+                                        )}
+
+                                        <div className="mt-4 flex items-center gap-3">
+                                            <Link
+                                                href={`/location/${claim.location_id}/dashboard`}
+                                                className="text-xs font-bold text-[#292928] hover:text-[#1A73E8] flex items-center gap-1 underline underline-offset-4"
+                                            >
+                                                Preview Dashboard <ExternalLink size={12} />
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex md:flex-col gap-3 justify-center shrink-0 border-t md:border-t-0 md:border-l border-[#E4E9F0] pt-4 md:pt-0 md:pl-6">
+                                        {claim.status === 'pending' ? (
+                                            <>
+                                                <button
+                                                    onClick={() => handleClaimReview(claim.claim_id, 'verified')}
+                                                    className="flex-1 md:flex-none flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-[#c3f832] text-[#292928] font-black text-xs hover:bg-[#b5eb29] transition-all shadow-sm cursor-pointer"
+                                                >
+                                                    <Check size={16} strokeWidth={3} /> Approve Ownership
+                                                </button>
+                                                <button
+                                                    onClick={() => handleClaimReview(claim.claim_id, 'declined')}
+                                                    className="flex-1 md:flex-none flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-white border border-[#E4E9F0] text-[#E53935] font-bold text-xs hover:bg-red-50 hover:border-red-200 transition-all cursor-pointer"
+                                                >
+                                                    <X size={16} /> Decline
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <button
+                                                onClick={() => handleClaimReview(claim.claim_id, claim.status === 'verified' ? 'declined' : 'verified')}
+                                                className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-[#f8f8f8] border border-[#E4E9F0] text-[#6B7280] font-bold text-xs hover:text-[#292928] transition-colors"
+                                            >
+                                                Switch to {claim.status === 'verified' ? 'Declined' : 'Approved'}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                )}
+
                 {/* ML Analysis Tab */}
                 {activeTab === 'ml' && <MlReviewTab />}
             </main>

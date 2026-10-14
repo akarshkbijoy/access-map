@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, MapPin, CheckCircle, AlertTriangle, ShieldAlert, Camera } from 'lucide-react'
+import { ArrowLeft, MapPin, CheckCircle, AlertTriangle, ShieldAlert, Camera, LayoutDashboard } from 'lucide-react'
 
 export default async function LocationProfilePage({
     params
@@ -85,6 +85,15 @@ export default async function LocationProfilePage({
                                     <MapPin size={16} className="mr-1.5 shrink-0" />
                                     {location.address || "Address not provided"}
                                 </p>
+                                <div className="mt-4">
+                                    <Link
+                                        href={`/location/${id}/dashboard`}
+                                        className="inline-flex items-center gap-2 bg-[#c3f832] text-[#292928] px-4 py-2.5 rounded-xl text-xs font-black hover:bg-[#b3ea25] transition-all shadow-xs"
+                                    >
+                                        <LayoutDashboard size={15} strokeWidth={2.5} />
+                                        <span>View Comprehensive Dashboard & Campus Map</span>
+                                    </Link>
+                                </div>
                             </div>
                             <div className="mt-4 md:mt-0 flex flex-col items-end">
                                 <div className="flex items-center space-x-3">

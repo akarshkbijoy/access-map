@@ -27,7 +27,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 })
         }
 
-        const role = user.username.toLowerCase().includes('admin') ? 'admin' : 'user'
+        const role = user.role || (user.username.toLowerCase().includes('admin') ? 'admin' : 'user')
 
         const token = await signToken({
             user_id: Number(user.user_id),
@@ -35,7 +35,15 @@ export async function POST(req: Request) {
             role: role
         })
 
-        const response = NextResponse.json({ success: true, user: { id: Number(user.user_id), username: user.username, role } }, { status: 200 })
+        const response = NextResponse.json({ 
+            success: true, 
+            user: { 
+                id: Number(user.user_id), 
+                username: user.username, 
+                email: user.email,
+                role 
+            } 
+        }, { status: 200 })
 
         // Set HTTP-only cookie
         response.cookies.set({
