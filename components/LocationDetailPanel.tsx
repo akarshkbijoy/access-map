@@ -82,7 +82,7 @@ export default function LocationDetailPanel({ location, onClose }: LocationDetai
                 if (responseData.contribution.status === 'verified') {
                     setLocalContributions(prev => [responseData.contribution, ...prev])
                 }
-                setMessage({ type: 'success', text: 'Contribution published successfully!' })
+                setMessage({ type: 'success', text: 'Contribution submitted successfully!' })
             } else {
                 setMessage({ type: 'success', text: 'Contribution submitted successfully!' })
             }
